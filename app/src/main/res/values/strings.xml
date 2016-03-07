@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Evil Hide</string>
+
+    <string name="action_settings">设置</string>
+
+    <string name="switch_label">隐藏</string>
+
+    <string-array name="app_arrays">
+        <item>被隐藏应用</item>
+        <item>所有应用</item>
+    </string-array>
+</resources>

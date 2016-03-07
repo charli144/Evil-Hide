@@ -28,6 +28,9 @@ public class CallReceiver extends BroadcastReceiver {
             i.setClass(context, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
+        } else {
+            //查询preference
+
         }
 
     }

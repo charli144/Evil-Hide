@@ -114,21 +114,6 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         return mAppInfos.size();
     }
 
-    private String getLauncherActivityFromPackageName(String packageName) {
-        final PackageManager pm = mContext.getPackageManager();
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-
-        List<ResolveInfo> appList = pm.queryIntentActivities(mainIntent, 0);
-
-        for (ResolveInfo app : appList) {
-            if (app.activityInfo.packageName.equals(packageName)) {
-                return app.activityInfo.name;
-            }
-        }
-
-        return null;
-    }
-
     public ArrayList<MyAppInfo> getData() {
         return mAppInfos;
     }

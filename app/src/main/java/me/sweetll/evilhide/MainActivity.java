@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mAppListAdapter.notifyDataSetChanged();
 
         for (ApplicationInfo app : apps) {
-            if ((app.flags & ApplicationInfo.FLAG_SYSTEM) != 1) {
+            if (((app.flags & ApplicationInfo.FLAG_SYSTEM) != 1) && (!app.packageName.equals(getPackageName()))) {
                 sharedPreferences = getSharedPreferences(getPackageName() + app.packageName, 0);
                 boolean hidden = !app.enabled;
                 String password = sharedPreferences.getString(Settings.SHARED_PASSWORD, null);

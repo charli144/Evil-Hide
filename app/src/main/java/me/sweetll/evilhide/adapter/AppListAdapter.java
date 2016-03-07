@@ -74,12 +74,12 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (isChecked) {
                     editor.putBoolean(Settings.SHARED_HIDDEN, true);
-                    editor.commit();
+                    editor.apply();
                     String cmd = "pm disable " + packageName;
                     HiddenService.performAction(mContext, cmd);
                 } else {
                     editor.putBoolean(Settings.SHARED_HIDDEN, false);
-                    editor.commit();
+                    editor.apply();
                     String cmd = "pm enable " + packageName;
                     HiddenService.performAction(mContext, cmd);
                 }

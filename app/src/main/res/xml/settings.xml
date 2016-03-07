@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/preference_settings" >
+        <EditTextPreference
+            android:key="me.sweetll.evilhide.launch.password"
+            android:title="@string/preference_password"
+            android:defaultValue="#1234" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_others">
+
+        <Preference android:title="@string/preference_about">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://github.com/blackbbc" />
+        </Preference>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

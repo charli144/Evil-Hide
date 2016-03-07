@@ -9,4 +9,7 @@ public class Settings {
 
     public static final String SHARED_HIDDEN = "shared_hidden";
     public static final String SHARED_PASSWORD = "shared_password";
+
+    public static final String SHARED_LAUNCH_PASSWORD = "me.sweetll.evilhide.launch.password";
+
 }

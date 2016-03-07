@@ -5,6 +5,11 @@
 
     <string name="switch_label">隐藏</string>
 
+    <string name="preference_settings">设置</string>
+    <string name="preference_others">其他</string>
+    <string name="preference_password">启动密码</string>
+    <string name="preference_about">关于</string>
+
     <string-array name="app_arrays">
         <item>被隐藏应用</item>
         <item>所有应用</item>

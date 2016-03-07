@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (ApplicationInfo app : apps) {
             if ((app.flags & ApplicationInfo.FLAG_SYSTEM) != 1) {
-                sharedPreferences = getSharedPreferences("evil_hide" + app.packageName, 0);
+                sharedPreferences = getSharedPreferences(getPackageName() + app.packageName, 0);
                 boolean hidden = !app.enabled;
                 String password = sharedPreferences.getString(Settings.SHARED_PASSWORD, null);
                 switch (flag) {

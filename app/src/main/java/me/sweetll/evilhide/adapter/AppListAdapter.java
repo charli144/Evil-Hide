@@ -70,7 +70,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 MyAppInfo selectedApp = mAppInfos.get(position);
                 final PackageManager pm = mContext.getPackageManager();
                 String packageName = selectedApp.applicationInfo.packageName;
-                SharedPreferences sharedPreferences = mContext.getSharedPreferences("evil_hide" + packageName, 0);
+                SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + packageName, 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (isChecked) {
                     editor.putBoolean(Settings.SHARED_HIDDEN, true);

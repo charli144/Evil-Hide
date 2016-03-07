@@ -2,16 +2,20 @@ package me.sweetll.evilhide.adapter;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -59,7 +63,25 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         holder.mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final EditText editPassword = new EditText(mContext);
+                if (!TextUtils.isEmpty(app.password)) {
+                    editPassword.setText(app.password);
+                }
+                new AlertDialog.Builder(mContext)
+                        .setTitle("请输入启动该应用的密码")
+                        .setView(editPassword)
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                app.password = editPassword.getText().toString();
+                                SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + app.applicationInfo.packageName, 0);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(Settings.SHARED_PASSWORD, app.password);
+                                editor.apply();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -105,6 +127,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         }
 
         return null;
+    }
+
+    public ArrayList<MyAppInfo> getData() {
+        return mAppInfos;
     }
 
     public void setData(ArrayList<MyAppInfo> infos) {

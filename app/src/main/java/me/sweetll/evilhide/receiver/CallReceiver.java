@@ -17,7 +17,7 @@ public class CallReceiver extends BroadcastReceiver {
             phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
         }
 
-        if (phoneNumber.equals("#0116")) {
+        if (phoneNumber.equals("#1234")) {
             setResultData(null);
             Intent i = new Intent();
             i.setClass(context, MainActivity.class);

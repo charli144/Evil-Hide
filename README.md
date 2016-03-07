@@ -31,3 +31,4 @@ adb shell pm unhide {packag_name}
 - [ ] Android 6.0的权限管理
 - [ ] 当检测到手机是Android 4.4以上时，使用`pm hide`代替`pm disable`
 - [ ] 使用密码启动应用
+- [ ] 应用关闭后自动隐藏

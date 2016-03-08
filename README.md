@@ -1,10 +1,10 @@
 #Evil Hide
 > 这个应用可以隐藏其他的应用图标哟
 
-需求很简单，隐藏第三方应用图标。看了一下Google Play上的应用，神TM一堆应用锁软件，滞涨吗？有一个应用隐藏助手[https://play.google.com/store/apps/details?id=com.thinkyeah.apphider&hl=zh-CN](https://play.google.com/store/apps/details?id=com.thinkyeah.apphider&hl=zh-CN)，好用是好用，可是你能不能把自己隐藏了？神TM在应用列表里有一个软件叫做应用隐藏助手，这不是掩耳盗铃吗？
+隐藏app的app。用处自己挖掘。
 
 ###特点：
-- 本软件本身没有图标
+- 本软件本身没有图标，需通过输入暗号进入。
 - <del>不用root（仅限Android 4.4以上）</del>（待做）
 
 ###原理

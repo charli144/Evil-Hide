@@ -49,64 +49,21 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
     @Override
     public AppListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.list_app, parent, false);
+
+
+
         return new AppListViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(AppListViewHolder holder, final int position) {
+    public void onBindViewHolder(AppListViewHolder holder, int position) {
         final PackageManager pm = mContext.getPackageManager();
         final MyAppInfo app = mAppInfos.get(position);
 
         holder.mAppLabel.setText(pm.getApplicationLabel(app.applicationInfo));
         holder.mIconImage.setImageDrawable(pm.getApplicationIcon(app.applicationInfo));
 
-        holder.mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText editPassword = new EditText(mContext);
-                if (!TextUtils.isEmpty(app.password)) {
-                    editPassword.setText(app.password);
-                }
-                new AlertDialog.Builder(mContext)
-                        .setTitle("请输入启动该应用的密码")
-                        .setView(editPassword)
-                        .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                app.password = editPassword.getText().toString();
-                                SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + app.applicationInfo.packageName, 0);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(Settings.SHARED_PASSWORD, app.password);
-                                editor.apply();
-                            }
-                        })
-                        .show();
-            }
-        });
-
         holder.mSwitchButton.setChecked(app.hidden);
-        holder.mSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                MyAppInfo selectedApp = mAppInfos.get(position);
-                final PackageManager pm = mContext.getPackageManager();
-                String packageName = selectedApp.applicationInfo.packageName;
-                SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + packageName, 0);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                if (isChecked) {
-                    editor.putBoolean(Settings.SHARED_HIDDEN, true);
-                    editor.apply();
-                    String cmd = "pm disable " + packageName;
-                    HiddenService.performAction(mContext, cmd);
-                } else {
-                    editor.putBoolean(Settings.SHARED_HIDDEN, false);
-                    editor.apply();
-                    String cmd = "pm enable " + packageName;
-                    HiddenService.performAction(mContext, cmd);
-                }
-            }
-        });
     }
 
     @Override
@@ -130,7 +87,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         mAppInfos.clear();
     }
 
-    public static class AppListViewHolder extends RecyclerView.ViewHolder {
+    public class AppListViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.icon_app) ImageView mIconImage;
         @Bind(R.id.label_app) TextView mAppLabel;
         @Bind(R.id.btn_add) Button mAddButton;
@@ -139,6 +96,58 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         public AppListViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            mAddButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    final MyAppInfo app = mAppInfos.get(position);
+                    final EditText editPassword = new EditText(mContext);
+                    if (!TextUtils.isEmpty(app.password)) {
+                        editPassword.setText(app.password);
+                    }
+                    new AlertDialog.Builder(mContext)
+                        .setTitle("请输入启动该应用的密码")
+                        .setView(editPassword)
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                app.password = editPassword.getText().toString();
+                                SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + app.applicationInfo.packageName, 0);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(Settings.SHARED_PASSWORD, app.password);
+                                editor.apply();
+                            }
+                        })
+                        .show();
+                }
+            });
+
+            mSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int position = getAdapterPosition();
+                    MyAppInfo selectedApp = mAppInfos.get(position);
+                    selectedApp.hidden = isChecked;
+                    final PackageManager pm = mContext.getPackageManager();
+                    String packageName = selectedApp.applicationInfo.packageName;
+                    SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + packageName, 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    if (isChecked) {
+                        editor.putBoolean(Settings.SHARED_HIDDEN, true);
+                        editor.apply();
+                        String cmd = "pm disable " + packageName;
+                        HiddenService.performAction(mContext, cmd);
+                    } else {
+                        editor.putBoolean(Settings.SHARED_HIDDEN, false);
+                        editor.apply();
+                        String cmd = "pm enable " + packageName;
+                        HiddenService.performAction(mContext, cmd);
+                    }
+                }
+            });
+
         }
     }
 }

@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences;
 
         mAppListAdapter.clearData();
-        mAppListAdapter.notifyDataSetChanged();
 
         for (ApplicationInfo app : apps) {
             if (((app.flags & ApplicationInfo.FLAG_SYSTEM) != 1) && (!app.packageName.equals(getPackageName()))) {

@@ -17,7 +17,7 @@ public class CallReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String phoneNumber = getResultData();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String launchPassword = preferences.getString(Settings.SHARED_LAUNCH_PASSWORD, null);
+        String launchPassword = preferences.getString(Settings.SHARED_LAUNCH_PASSWORD, "#1234");
         if (phoneNumber == null) {
             phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
         }

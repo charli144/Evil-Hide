@@ -33,9 +33,6 @@ import me.sweetll.evilhide.Settings;
 import me.sweetll.evilhide.model.MyAppInfo;
 import me.sweetll.evilhide.service.HiddenService;
 
-/**
- * Created by sweet on 3/6/16.
- */
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListViewHolder> {
     private final Context mContext;
     private ArrayList<MyAppInfo> mAppInfos;
@@ -129,8 +126,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int position = getAdapterPosition();
                     MyAppInfo selectedApp = mAppInfos.get(position);
+                    //如果一致就不要管了
+                    if (selectedApp.hidden == isChecked)
+                        return;
                     selectedApp.hidden = isChecked;
-                    final PackageManager pm = mContext.getPackageManager();
                     String packageName = selectedApp.applicationInfo.packageName;
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + packageName, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();

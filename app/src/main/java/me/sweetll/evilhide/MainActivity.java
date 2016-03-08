@@ -1,11 +1,17 @@
 package me.sweetll.evilhide;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,9 +23,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import com.orhanobut.logger.Logger;
 
-import java.io.DataOutputStream;
 import java.util.List;
 
 import butterknife.Bind;
@@ -41,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Logger.init();
+        Dexter.initialize(this);
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+        initPermissions();
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -81,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    void initPermissions() {
+        PermissionListener snackBarPermissionListener =
+            SnackbarOnDeniedPermissionListener.Builder
+                .with(mToolbar, "需要电话权限以便从拨号盘启动")
+                .withOpenSettingsButton("设置")
+                .build();
+        Dexter.checkPermission(snackBarPermissionListener, Manifest.permission.PROCESS_OUTGOING_CALLS);
     }
 
     void populateAppList(int flag) {

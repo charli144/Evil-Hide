@@ -28,4 +28,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.orhanobut:logger:1.12'
     compile 'eu.chainfire:libsuperuser:1.0.0.+'
+    compile 'com.karumi:dexter:2.2.1'
 }

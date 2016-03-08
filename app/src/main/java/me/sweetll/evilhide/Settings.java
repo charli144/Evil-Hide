@@ -12,4 +12,6 @@ public class Settings {
 
     public static final String SHARED_LAUNCH_PASSWORD = "me.sweetll.evilhide.launch.password";
 
+    public static final int MY_PERMISSIONS_REQUEST_PROCESS_OUTGOING_CALLS = 10;
+
 }

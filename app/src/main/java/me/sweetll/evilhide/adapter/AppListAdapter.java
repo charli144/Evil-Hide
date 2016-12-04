@@ -19,11 +19,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sweetll.evilhide.R;
 import me.sweetll.evilhide.Settings;
@@ -52,10 +51,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         final PackageManager pm = mContext.getPackageManager();
         final MyAppInfo app = mAppInfos.get(position);
 
-        holder.mAppLabel.setText(pm.getApplicationLabel(app.applicationInfo));
-        holder.mIconImage.setImageDrawable(pm.getApplicationIcon(app.applicationInfo));
-        holder.mStarButton.setFavorite(app.star, false);
-        holder.mSwitchButton.setChecked(app.hidden);
+        holder.mAppLabel.setText(pm.getApplicationLabel(app.getApplicationInfo()));
+        holder.mIconImage.setImageDrawable(pm.getApplicationIcon(app.getApplicationInfo()));
+        holder.mStarButton.setFavorite(app.getStar(), false);
+        holder.mSwitchButton.setChecked(app.getHidden());
     }
 
     @Override
@@ -80,11 +79,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
     }
 
     public class AppListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.icon_app) ImageView mIconImage;
-        @Bind(R.id.label_app) TextView mAppLabel;
-        @Bind(R.id.btn_add) Button mAddButton;
-        @Bind(R.id.btn_switch) Switch mSwitchButton;
-        @Bind(R.id.btn_star) MaterialFavoriteButton mStarButton;
+        @BindView(R.id.icon_app) ImageView mIconImage;
+        @BindView(R.id.label_app) TextView mAppLabel;
+        @BindView(R.id.btn_add) Button mAddButton;
+        @BindView(R.id.btn_switch) Switch mSwitchButton;
+        @BindView(R.id.btn_star) MaterialFavoriteButton mStarButton;
 
         public AppListViewHolder(View itemView) {
             super(itemView);
@@ -96,7 +95,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
                     int position = getAdapterPosition();
                     MyAppInfo selectedApp = mAppInfos.get(position);
-                    SharedPreferences sharedPreferences = mContext.getSharedPreferences(selectedApp.applicationInfo.packageName, 0);
+                    SharedPreferences sharedPreferences = mContext.getSharedPreferences(selectedApp.getApplicationInfo().packageName, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean(Settings.SHARED_STAR, favorite);
                     editor.apply();
@@ -109,8 +108,8 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                     int position = getAdapterPosition();
                     final MyAppInfo app = mAppInfos.get(position);
                     final EditText editPassword = new EditText(mContext);
-                    if (!TextUtils.isEmpty(app.password)) {
-                        editPassword.setText(app.password);
+                    if (!TextUtils.isEmpty(app.getPassword())) {
+                        editPassword.setText(app.getPassword());
                     }
                     new AlertDialog.Builder(mContext)
                         .setTitle("请输入启动该应用的密码")
@@ -119,10 +118,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                app.password = editPassword.getText().toString();
-                                SharedPreferences sharedPreferences = mContext.getSharedPreferences(app.applicationInfo.packageName, 0);
+                                app.setPassword(editPassword.getText().toString());
+                                SharedPreferences sharedPreferences = mContext.getSharedPreferences(app.getApplicationInfo().packageName, 0);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(Settings.SHARED_PASSWORD, app.password);
+                                editor.putString(Settings.SHARED_PASSWORD, app.getPassword());
                                 editor.apply();
                             }
                         })
@@ -136,10 +135,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                     int position = getAdapterPosition();
                     MyAppInfo selectedApp = mAppInfos.get(position);
                     //如果一致就不要管了
-                    if (selectedApp.hidden == isChecked)
+                    if (selectedApp.getHidden() == isChecked)
                         return;
-                    selectedApp.hidden = isChecked;
-                    String packageName = selectedApp.applicationInfo.packageName;
+                    selectedApp.setHidden(isChecked);
+                    String packageName = selectedApp.getApplicationInfo().packageName;
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences(packageName, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     if (isChecked) {
@@ -162,7 +161,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         public void onClick(View v) {
             int position = getLayoutPosition();
             MyAppInfo selectedApp = mAppInfos.get(position);
-            String packageName = selectedApp.applicationInfo.packageName;
+            String packageName = selectedApp.getApplicationInfo().packageName;
             Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packageName);
             if (intent != null) {
                 mContext.startActivity(intent);

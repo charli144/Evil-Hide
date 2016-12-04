@@ -1,17 +1,11 @@
 package me.sweetll.evilhide;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,24 +18,22 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.karumi.dexter.Dexter;
-import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sweetll.evilhide.adapter.AppListAdapter;
 import me.sweetll.evilhide.model.MyAppInfo;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.spinner_nav) Spinner mSpinner;
-    @Bind(R.id.list_app) RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.spinner_nav) Spinner mSpinner;
+    @BindView(R.id.list_app) RecyclerView mRecyclerView;
 
     AppListAdapter mAppListAdapter;
 
@@ -50,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         Logger.init();
         Dexter.initialize(this);
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);

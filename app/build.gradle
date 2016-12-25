@@ -5,21 +5,22 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     kapt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.9'
     compile 'com.github.orhanobut:logger:1.12'
     compile 'eu.chainfire:libsuperuser:1.0.0.+'
     compile 'com.karumi:dexter:2.2.1'
     compile 'com.github.ivbaranov:materialfavoritebutton:0.1.2'
-    kapt 'com.android.databinding:compiler:2.3.0-alpha2'
+    kapt 'com.android.databinding:compiler:2.2.3'
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "me.sweetll.evilhide"

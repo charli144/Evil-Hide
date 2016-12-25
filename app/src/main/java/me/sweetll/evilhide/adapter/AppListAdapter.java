@@ -97,7 +97,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                     MyAppInfo selectedApp = mAppInfos.get(position);
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences(selectedApp.getApplicationInfo().packageName, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(Settings.SHARED_STAR, favorite);
+                    editor.putBoolean(Settings.INSTANCE.getSHARED_STAR(), favorite);
                     editor.apply();
                 }
             });
@@ -121,7 +121,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                                 app.setPassword(editPassword.getText().toString());
                                 SharedPreferences sharedPreferences = mContext.getSharedPreferences(app.getApplicationInfo().packageName, 0);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(Settings.SHARED_PASSWORD, app.getPassword());
+                                editor.putString(Settings.INSTANCE.getSHARED_PASSWORD(), app.getPassword());
                                 editor.apply();
                             }
                         })
@@ -142,15 +142,15 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences(packageName, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     if (isChecked) {
-                        editor.putBoolean(Settings.SHARED_HIDDEN, true);
+                        editor.putBoolean(Settings.INSTANCE.getSHARED_HIDDEN(), true);
                         editor.apply();
                         String cmd = "pm disable " + packageName;
-                        HiddenService.performAction(mContext, cmd);
+//                        HiddenService.performAction(mContext, cmd);
                     } else {
-                        editor.putBoolean(Settings.SHARED_HIDDEN, false);
+                        editor.putBoolean(Settings.INSTANCE.getSHARED_HIDDEN(), false);
                         editor.apply();
                         String cmd = "pm enable " + packageName;
-                        HiddenService.performAction(mContext, cmd);
+//                        HiddenService.performAction(mContext, cmd);
                     }
                 }
             });

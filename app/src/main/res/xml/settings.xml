@@ -9,7 +9,7 @@
             android:defaultValue="#1234" />
 
         <CheckBoxPreference
-            android:key="me.sweetll.evilhide.visible"
+            android:key="me.sweetll.evilhide.invisible"
             android:title="@string/preference_invisible"
             android:summary="隐藏后此App在启动菜单里将不可见"
             android:defaultValue="false" />

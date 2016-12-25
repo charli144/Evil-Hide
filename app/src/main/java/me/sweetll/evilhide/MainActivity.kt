@@ -23,8 +23,8 @@ import butterknife.ButterKnife
 import me.sweetll.evilhide.adapter.AppListAdapter
 import me.sweetll.evilhide.model.MyAppInfo
 
+class MainActivity : AppCompatActivity() {
 
-class SubstituteActivity : AppCompatActivity() {
     @BindView(R.id.toolbar)
     lateinit var mToolbar: Toolbar
 
@@ -105,4 +105,5 @@ class SubstituteActivity : AppCompatActivity() {
         }
         appListAdapter.notifyDataSetChanged()
     }
+
 }

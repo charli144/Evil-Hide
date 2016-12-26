@@ -10,7 +10,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     kapt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.9'
     compile 'com.github.orhanobut:logger:1.12'
     compile 'eu.chainfire:libsuperuser:1.0.0.+'
     compile 'com.karumi:dexter:2.2.1'
@@ -27,7 +26,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
     buildTypes {
         release {

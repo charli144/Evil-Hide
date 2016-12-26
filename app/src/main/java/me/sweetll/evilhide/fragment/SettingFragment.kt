@@ -32,7 +32,7 @@ class SettingFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferen
             val p = activity.packageManager
             val componentName = ComponentName(activity, MainActivity::class.java)
             when (selfInvisible) {
-                true -> p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP)
+                true -> p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0)
                 false -> p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP)
             }
         }

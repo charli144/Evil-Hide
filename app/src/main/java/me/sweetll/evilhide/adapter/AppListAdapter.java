@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -26,12 +25,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sweetll.evilhide.R;
 import me.sweetll.evilhide.Settings;
-import me.sweetll.evilhide.model.MyAppInfo;
-import me.sweetll.evilhide.service.HiddenService;
+import me.sweetll.evilhide.model.AppInfo;
 
+/*
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListViewHolder> {
     private final Context mContext;
-    private ArrayList<MyAppInfo> mAppInfos;
+    private ArrayList<AppInfo> mAppInfos;
 
     public AppListAdapter(Context context) {
         super();
@@ -41,7 +40,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
 
     @Override
     public AppListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.list_app, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.item_app, parent, false);
 
         return new AppListViewHolder(v);
     }
@@ -49,10 +48,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
     @Override
     public void onBindViewHolder(AppListViewHolder holder, int position) {
         final PackageManager pm = mContext.getPackageManager();
-        final MyAppInfo app = mAppInfos.get(position);
+        final AppInfo app = mAppInfos.get(position);
 
         holder.mAppLabel.setText(pm.getApplicationLabel(app.getApplicationInfo()));
-        holder.mIconImage.setImageDrawable(pm.getApplicationIcon(app.getApplicationInfo()));
+//        holder.mIconImage.setImageDrawable(pm.getApplicationIcon(app.getApplicationInfo()));
         holder.mStarButton.setFavorite(app.getStar(), false);
         holder.mSwitchButton.setChecked(app.getHidden());
     }
@@ -62,15 +61,15 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         return mAppInfos.size();
     }
 
-    public ArrayList<MyAppInfo> getData() {
+    public ArrayList<AppInfo> getData() {
         return mAppInfos;
     }
 
-    public void setData(ArrayList<MyAppInfo> infos) {
+    public void setData(ArrayList<AppInfo> infos) {
         mAppInfos = infos;
     }
 
-    public void addData(MyAppInfo info) {
+    public void addData(AppInfo info) {
         mAppInfos.add(info);
     }
 
@@ -79,7 +78,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
     }
 
     public class AppListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.icon_app) ImageView mIconImage;
+//        @BindView(R.id.icon_app) ImageView mIconImage;
         @BindView(R.id.label_app) TextView mAppLabel;
         @BindView(R.id.btn_add) Button mAddButton;
         @BindView(R.id.btn_switch) Switch mSwitchButton;
@@ -94,7 +93,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 @Override
                 public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
                     int position = getAdapterPosition();
-                    MyAppInfo selectedApp = mAppInfos.get(position);
+                    AppInfo selectedApp = mAppInfos.get(position);
                     SharedPreferences sharedPreferences = mContext.getSharedPreferences(selectedApp.getApplicationInfo().packageName, 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean(Settings.INSTANCE.getSHARED_STAR(), favorite);
@@ -106,7 +105,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    final MyAppInfo app = mAppInfos.get(position);
+                    final AppInfo app = mAppInfos.get(position);
                     final EditText editPassword = new EditText(mContext);
                     if (!TextUtils.isEmpty(app.getPassword())) {
                         editPassword.setText(app.getPassword());
@@ -133,7 +132,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int position = getAdapterPosition();
-                    MyAppInfo selectedApp = mAppInfos.get(position);
+                    AppInfo selectedApp = mAppInfos.get(position);
                     //如果一致就不要管了
                     if (selectedApp.getHidden() == isChecked)
                         return;
@@ -160,7 +159,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         @Override
         public void onClick(View v) {
             int position = getLayoutPosition();
-            MyAppInfo selectedApp = mAppInfos.get(position);
+            AppInfo selectedApp = mAppInfos.get(position);
             String packageName = selectedApp.getApplicationInfo().packageName;
             Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packageName);
             if (intent != null) {
@@ -169,3 +168,4 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         }
     }
 }
+*/

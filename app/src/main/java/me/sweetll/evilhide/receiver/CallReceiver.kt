@@ -14,17 +14,13 @@ class CallReceiver : BroadcastReceiver() {
         var phoneNumber: String? = resultData
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val launchPassword = preferences.getString(Settings.KEY_PREF_LAUNCH_PASSWORD, "#1234")
-        val selfInvisible = preferences.getBoolean(Settings.KEY_PREF_INVISIBLE, false)
         if (phoneNumber == null) {
             phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER)
         }
 
         if (phoneNumber == launchPassword) {
             resultData = null
-            val i = Intent(
-                    context,
-                    if (selfInvisible) SubstituteActivity::class.java else MainActivity::class.java
-            )
+            val i = Intent(context, SubstituteActivity::class.java)
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(i)
         } else {

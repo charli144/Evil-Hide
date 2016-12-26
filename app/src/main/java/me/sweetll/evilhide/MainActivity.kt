@@ -20,8 +20,8 @@ import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener
 
 import butterknife.BindView
 import butterknife.ButterKnife
-import me.sweetll.evilhide.adapter.AppListAdapter
-import me.sweetll.evilhide.model.MyAppInfo
+import me.sweetll.evilhide.adapter.AppAdapter
+import me.sweetll.evilhide.model.AppInfo
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.list_app)
     lateinit var mRecyclerView: RecyclerView
 
-    val appListAdapter = AppListAdapter(this)
+    val appListAdapter = AppAdapter(mutableListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,9 +97,9 @@ class MainActivity : AppCompatActivity() {
                 val password = sharedPreferences.getString(Settings.SHARED_PASSWORD, "")
                 val star = sharedPreferences.getBoolean(Settings.SHARED_STAR, false)
                 when (flag) {
-                    Settings.SPINNER_STAR_APP -> if (star) appListAdapter.addData(MyAppInfo(app, hidden, true, password!!))
-                    Settings.SPINNER_HIDDEN_APP -> if (hidden) appListAdapter.addData(MyAppInfo(app, true, star, password!!))
-                    Settings.SPINNER_ALL_APP -> appListAdapter.addData(MyAppInfo(app, hidden, star, password!!))
+                    Settings.SPINNER_STAR_APP -> if (star) appListAdapter.addNewData(AppInfo(app, hidden, true, password!!))
+                    Settings.SPINNER_HIDDEN_APP -> if (hidden) appListAdapter.addNewData(AppInfo(app, true, star, password!!))
+                    Settings.SPINNER_ALL_APP -> appListAdapter.addNewData(AppInfo(app, hidden, star, password!!))
                 }
             }
         }

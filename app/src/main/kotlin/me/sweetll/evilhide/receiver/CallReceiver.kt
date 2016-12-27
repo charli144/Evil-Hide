@@ -19,10 +19,11 @@ class CallReceiver : BroadcastReceiver() {
         }
 
         if (phoneNumber == launchPassword) {
-            resultData = null
-            val i = Intent(context, SubstituteActivity::class.java)
+            val i = Intent()
+            i.setClassName("me.sweetll.evilhide", "me.sweetll.evilhide.SubstituteActivity")
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(i)
+            resultData = null
         } else {
             //查询preference
         }

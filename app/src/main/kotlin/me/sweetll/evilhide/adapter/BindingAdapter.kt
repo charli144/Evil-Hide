@@ -13,7 +13,7 @@ fun setImageSrc(imageView: ImageView, drawable: Drawable) {
 
 @BindingAdapter("favorite")
 fun setFavorite(materialFavoriteButton: MaterialFavoriteButton, favorite: Boolean) {
-    materialFavoriteButton.setFavorite(favorite, true)
+    materialFavoriteButton.setFavorite(favorite, false)
 }
 
 @BindingAdapter("check")

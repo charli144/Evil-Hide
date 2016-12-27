@@ -93,7 +93,7 @@ class SubstituteActivity : AppCompatActivity() {
                 .filter { it.packageName != BuildConfig.APPLICATION_ID && it.flags and ApplicationInfo.FLAG_SYSTEM != 1}
                 .fold(mutableListOf(), {
                     newData, applicationInfo ->
-                    newData.add(AppInfo(applicationInfo))
+                    newData.add(AppInfo(applicationInfo.packageName))
                     newData
                 })
         )

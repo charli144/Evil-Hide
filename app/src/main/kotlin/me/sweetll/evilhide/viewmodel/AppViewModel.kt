@@ -24,11 +24,13 @@ class AppViewModel(val context: Context, val appInfo: AppInfo) {
         isHidden.set(appInfo.hidden)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onClickApp(view: View) {
         val intent = context.packageManager.getLaunchIntentForPackage(appInfo.packageName)
         intent?.let { context.startActivity(it) }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onClickAdd(view: View) {
         val passwordEdit = EditText(context)
         passwordEdit.setText(appInfo.password)
@@ -50,8 +52,6 @@ class AppViewModel(val context: Context, val appInfo: AppInfo) {
     fun onCheckChange(hidden: Boolean) {
         appInfo.hidden = hidden
         isHidden.set(hidden)
-        val cmd = "pm ${if (hidden) "disable" else "enable"} ${appInfo.packageName}"
-        HiddenService.performAction(context, cmd)
     }
 
 }

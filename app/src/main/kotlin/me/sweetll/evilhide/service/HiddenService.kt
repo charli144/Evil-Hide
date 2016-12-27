@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 
 import eu.chainfire.libsuperuser.Shell
+import me.sweetll.evilhide.AppApplication
 
 class HiddenService : IntentService("hidden-service") {
 
@@ -23,13 +24,10 @@ class HiddenService : IntentService("hidden-service") {
     }
 
     companion object {
-        @JvmOverloads fun performAction(context: Context?, action: String?, extras: Bundle? = null) {
-            if (context == null || action == null || action == "") return
-
-            val svc = Intent(context, HiddenService::class.java)
+        fun performAction(action: String) {
+            val svc = Intent(AppApplication.get(), HiddenService::class.java)
             svc.action = action
-            if (extras != null) svc.putExtras(extras)
-            context.startService(svc)
+            AppApplication.get().startService(svc)
         }
     }
 

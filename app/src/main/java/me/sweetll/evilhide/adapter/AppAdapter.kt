@@ -40,6 +40,14 @@ class AppAdapter(var data: MutableList<AppInfo>) : RecyclerView.Adapter<AppAdapt
     class ViewHolder(val binding: ItemAppBinding): RecyclerView.ViewHolder(binding.root) {
         fun bindAppInfo(appInfo: AppInfo) {
             binding.viewModel = AppViewModel(itemView.context, appInfo)
+            binding.starBtn.setOnFavoriteChangeListener{
+                button, favorite ->
+                binding.viewModel.onFavoriteChange(favorite)
+            }
+            binding.switchBtn.setOnCheckedChangeListener {
+                button, check ->
+                binding.viewModel.onCheckChange(check)
+            }
         }
     }
 

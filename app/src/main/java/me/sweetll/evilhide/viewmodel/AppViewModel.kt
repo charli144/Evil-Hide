@@ -21,11 +21,23 @@ class AppViewModel(val context: Context, val appInfo: AppInfo) {
         val pm = context.packageManager
         appName.set(pm.getApplicationLabel(appInfo.applicationInfo).toString())
         appIcon.set(pm.getApplicationIcon(appInfo.applicationInfo))
-        isStar.set(appInfo.star)
+        isStar.set(appInfo.favorite)
         isHidden.set(appInfo.hidden)
     }
 
+    fun onClickApp(view: View) {
+
+    }
+
     fun onClickAdd(view: View) {
+
+    }
+
+    fun onFavoriteChange(favorite: Boolean) {
+
+    }
+
+    fun onCheckChange(check: Boolean) {
 
     }
 

@@ -11,6 +11,4 @@ object Settings {
 
     val KEY_PREF_LAUNCH_PASSWORD = "me.sweetll.evilhide.launch.password"
     val KEY_PREF_INVISIBLE = "me.sweetll.evilhide.invisible"
-
-    val MY_PERMISSIONS_REQUEST_PROCESS_OUTGOING_CALLS = 10
 }

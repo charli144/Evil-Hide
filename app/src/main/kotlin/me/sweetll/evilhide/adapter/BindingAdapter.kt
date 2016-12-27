@@ -15,8 +15,3 @@ fun setImageSrc(imageView: ImageView, drawable: Drawable) {
 fun setFavorite(materialFavoriteButton: MaterialFavoriteButton, favorite: Boolean) {
     materialFavoriteButton.setFavorite(favorite, false)
 }
-
-@BindingAdapter("check")
-fun setCheck(switch: Switch, check: Boolean) {
-    switch.isChecked = check
-}

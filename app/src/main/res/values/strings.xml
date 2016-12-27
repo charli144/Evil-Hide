@@ -11,7 +11,7 @@
     <string name="preference_invisible">是否隐藏此App</string>
     <string name="preference_about">关于</string>
 
-    <string-array name="app_arrays">
+    <string-array name="spinner_arrays">
         <item>常用应用</item>
         <item>被隐藏应用</item>
         <item>所有应用</item>

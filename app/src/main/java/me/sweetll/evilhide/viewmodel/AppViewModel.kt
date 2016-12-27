@@ -1,16 +1,12 @@
 package me.sweetll.evilhide.viewmodel
 
 import android.content.Context
-import android.databinding.BindingAdapter
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.graphics.drawable.Drawable
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Switch
-import com.github.ivbaranov.mfb.MaterialFavoriteButton
 import me.sweetll.evilhide.model.AppInfo
 import me.sweetll.evilhide.service.HiddenService
 
@@ -58,23 +54,4 @@ class AppViewModel(val context: Context, val appInfo: AppInfo) {
         HiddenService.performAction(context, cmd)
     }
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter("drawable")
-        fun setImageSrc(imageView: ImageView, drawable: Drawable) {
-            imageView.setImageDrawable(drawable)
-        }
-
-        @JvmStatic
-        @BindingAdapter("favorite")
-        fun setFavorite(materialFavoriteButton: MaterialFavoriteButton, favorite: Boolean) {
-            materialFavoriteButton.setFavorite(favorite, true)
-        }
-
-        @JvmStatic
-        @BindingAdapter("check")
-        fun setCheck(switch: Switch, check: Boolean) {
-            switch.isChecked = check
-        }
-    }
 }

@@ -2,62 +2,54 @@ package me.sweetll.evilhide
 
 import android.Manifest
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.pm.ApplicationInfo
+import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Spinner
 
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener
 
-import butterknife.BindView
-import butterknife.ButterKnife
 import me.sweetll.evilhide.adapter.AppAdapter
 import me.sweetll.evilhide.config.Settings
+import me.sweetll.evilhide.databinding.ActivityMainBinding
+import me.sweetll.evilhide.extension.getFavorite
 import me.sweetll.evilhide.model.AppInfo
 
 
 class SubstituteActivity : AppCompatActivity() {
-    @BindView(R.id.toolbar)
-    lateinit var mToolbar: Toolbar
-
-    @BindView(R.id.spinner_nav)
-    lateinit var mSpinner: Spinner
-
-    @BindView(R.id.list_app)
-    lateinit var mRecyclerView: RecyclerView
-
-    val appListAdapter = AppAdapter(mutableListOf())
+    lateinit var binding: ActivityMainBinding
+    val appAdapter = AppAdapter(mutableListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         initPermissions()
 
-        setSupportActionBar(mToolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        setupRecyclerView()
 
-        mSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 populateAppList(position)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mRecyclerView.adapter = appListAdapter
+    }
+
+    fun setupRecyclerView() {
+        binding.appRecycler.layoutManager = LinearLayoutManager(this)
+        binding.appRecycler.adapter = appAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,32 +70,31 @@ class SubstituteActivity : AppCompatActivity() {
 
     fun initPermissions() {
         val snackBarPermissionListener = SnackbarOnDeniedPermissionListener.Builder
-                .with(mToolbar, "需要电话权限以便从拨号盘启动")
-                .withOpenSettingsButton("设置")
-                .build()
-        Dexter.checkPermission(snackBarPermissionListener, Manifest.permission.PROCESS_OUTGOING_CALLS)
+            .with(binding.root as ViewGroup, "需要电话权限以便从拨号盘启动")
+            .withOpenSettingsButton("设置")
+            .build()
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.PROCESS_OUTGOING_CALLS)
+                .withListener(snackBarPermissionListener)
+                .check()
     }
 
     fun populateAppList(flag: Int) {
         val pm = packageManager
-        val apps = pm.getInstalledApplications(0)
-        var sharedPreferences: SharedPreferences
+        val installedApps = pm.getInstalledApplications(0)
 
-        appListAdapter.clearData()
-
-//        for (app in apps) {
-//            if (app.flags and ApplicationInfo.FLAG_SYSTEM != 1 && app.packageName != packageName) {
-//                sharedPreferences = getSharedPreferences(app.packageName, 0)
-//                val hidden = !app.enabled
-//                val password = sharedPreferences.getString(Settings.SHARED_PASSWORD, "")
-//                val star = sharedPreferences.getBoolean(Settings.SHARED_STAR, false)
-//                when (flag) {
-//                    Settings.SPINNER_STAR_APP -> if (star) appListAdapter.addNewData(AppInfo(app, hidden, true, password!!))
-//                    Settings.SPINNER_HIDDEN_APP -> if (hidden) appListAdapter.addNewData(AppInfo(app, true, star, password!!))
-//                    Settings.SPINNER_ALL_APP -> appListAdapter.addNewData(AppInfo(app, hidden, star, password!!))
-//                }
-//            }
-//        }
-        appListAdapter.notifyDataSetChanged()
+        appAdapter.setNewData(
+                when (flag) {
+                    Settings.SPINNER_STAR_APP -> installedApps.filter { it.packageName.getFavorite() }
+                    Settings.SPINNER_HIDDEN_APP -> installedApps.filter { !it.enabled }
+                    else -> installedApps
+                }
+                .filter { it.packageName != BuildConfig.APPLICATION_ID}
+                .fold(mutableListOf(), {
+                    newData, applicationInfo ->
+                    newData.add(AppInfo(applicationInfo))
+                    newData
+                })
+        )
     }
 }

@@ -27,14 +27,10 @@ class AppAdapter(var data: MutableList<AppInfo>) : RecyclerView.Adapter<AppAdapt
 
     override fun getItemCount(): Int = data.size
 
-    fun clearData() {
+    fun setNewData(newData: MutableList<AppInfo>) {
         data.clear()
+        data.addAll(newData)
         notifyDataSetChanged()
-    }
-
-    fun addNewData(appInfo: AppInfo) {
-        data.add(appInfo)
-        notifyItemInserted(data.size - 1)
     }
 
     class ViewHolder(val binding: ItemAppBinding): RecyclerView.ViewHolder(binding.root) {

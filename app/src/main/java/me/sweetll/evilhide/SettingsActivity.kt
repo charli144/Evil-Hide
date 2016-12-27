@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
-import butterknife.ButterKnife
 import me.sweetll.evilhide.databinding.ActivitySettingsBinding
 import me.sweetll.evilhide.fragment.SettingFragment
 

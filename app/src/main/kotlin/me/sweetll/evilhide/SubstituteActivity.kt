@@ -2,6 +2,7 @@ package me.sweetll.evilhide
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -89,7 +90,7 @@ class SubstituteActivity : AppCompatActivity() {
                     Settings.SPINNER_HIDDEN_APP -> installedApps.filter { !it.enabled }
                     else -> installedApps
                 }
-                .filter { it.packageName != BuildConfig.APPLICATION_ID}
+                .filter { it.packageName != BuildConfig.APPLICATION_ID && it.flags and ApplicationInfo.FLAG_SYSTEM != 1}
                 .fold(mutableListOf(), {
                     newData, applicationInfo ->
                     newData.add(AppInfo(applicationInfo))

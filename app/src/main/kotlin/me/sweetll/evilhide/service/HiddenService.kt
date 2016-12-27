@@ -4,6 +4,7 @@ import android.app.IntentService
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 
 import eu.chainfire.libsuperuser.Shell
 import me.sweetll.evilhide.AppApplication
@@ -18,6 +19,7 @@ class HiddenService : IntentService("hidden-service") {
         intent?.let {
             val action = it.action
             if (!action.isNullOrEmpty()) {
+                Log.d("evil", "action = $action")
                 Shell.SU.run(action)
             }
         }

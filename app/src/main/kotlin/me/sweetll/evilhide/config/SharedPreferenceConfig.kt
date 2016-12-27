@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import me.sweetll.evilhide.AppApplication
 
 object SharedPreferenceConfig {
-    val FILE_NAME = "me.sweetll.evilhide"
+    val FILE_NAME = "me.sweetll.evilhide_app"
 
     val PREFIX_PREF_KEY_B_FAVORITE = "favorite_"
     val PREFIX_PREF_KEY_B_HIDDEN = "hidden_"

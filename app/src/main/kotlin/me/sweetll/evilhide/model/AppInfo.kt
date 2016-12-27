@@ -2,14 +2,13 @@ package me.sweetll.evilhide.model
 
 
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import me.sweetll.evilhide.AppApplication
 import me.sweetll.evilhide.extension.*
 import me.sweetll.evilhide.service.HiddenService
 
-class AppInfo(val packageName: String) {
-    val applicationInfo: ApplicationInfo
-        get() = AppApplication.get().packageManager.getApplicationInfo(packageName, 0)
+class AppInfo(val applicationInfo: ApplicationInfo) {
+    val packageName: String
+        get() = applicationInfo.packageName
 
     var favorite: Boolean
         get() = packageName.getFavorite()
@@ -21,6 +20,7 @@ class AppInfo(val packageName: String) {
         set(value) {
             val cmd = "pm ${if (value) "disable" else "enable"} $packageName"
             HiddenService.performAction(cmd)
+            applicationInfo.enabled = !applicationInfo.enabled
         }
     var password: String
         get() = packageName.getPassword()

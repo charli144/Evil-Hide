@@ -6,7 +6,7 @@ import android.content.Intent
 import android.preference.PreferenceManager
 
 import me.sweetll.evilhide.MainActivity
-import me.sweetll.evilhide.Settings
+import me.sweetll.evilhide.config.Settings
 import me.sweetll.evilhide.SubstituteActivity
 
 class CallReceiver : BroadcastReceiver() {

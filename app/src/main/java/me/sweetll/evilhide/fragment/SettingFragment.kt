@@ -8,7 +8,7 @@ import android.preference.PreferenceFragment
 import me.sweetll.evilhide.MainActivity
 
 import me.sweetll.evilhide.R
-import me.sweetll.evilhide.Settings
+import me.sweetll.evilhide.config.Settings
 
 class SettingFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {

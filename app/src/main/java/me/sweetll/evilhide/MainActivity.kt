@@ -3,7 +3,6 @@ package me.sweetll.evilhide
 import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ApplicationInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -21,7 +20,6 @@ import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener
 import butterknife.BindView
 import butterknife.ButterKnife
 import me.sweetll.evilhide.adapter.AppAdapter
-import me.sweetll.evilhide.model.AppInfo
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,19 +88,15 @@ class MainActivity : AppCompatActivity() {
 
         appListAdapter.clearData()
 
-        for (app in apps) {
-            if (app.flags and ApplicationInfo.FLAG_SYSTEM != 1 && app.packageName != packageName) {
-                sharedPreferences = getSharedPreferences(app.packageName, 0)
-                val hidden = !app.enabled
-                val password = sharedPreferences.getString(Settings.SHARED_PASSWORD, "")
-                val star = sharedPreferences.getBoolean(Settings.SHARED_STAR, false)
-                when (flag) {
-                    Settings.SPINNER_STAR_APP -> if (star) appListAdapter.addNewData(AppInfo(app, hidden, true, password!!))
-                    Settings.SPINNER_HIDDEN_APP -> if (hidden) appListAdapter.addNewData(AppInfo(app, true, star, password!!))
-                    Settings.SPINNER_ALL_APP -> appListAdapter.addNewData(AppInfo(app, hidden, star, password!!))
-                }
-            }
-        }
+//        for (app in apps) {
+//            if (app.flags and ApplicationInfo.FLAG_SYSTEM != 1 && app.packageName != packageName) {
+//                when (flag) {
+//                    Settings.SPINNER_STAR_APP -> if (star) appListAdapter.addNewData(AppInfo(app, hidden, true, password!!))
+//                    Settings.SPINNER_HIDDEN_APP -> if (hidden) appListAdapter.addNewData(AppInfo(app, true, star, password!!))
+//                    Settings.SPINNER_ALL_APP -> appListAdapter.addNewData(AppInfo(app, hidden, star, password!!))
+//                }
+//            }
+//        }
         appListAdapter.notifyDataSetChanged()
     }
 

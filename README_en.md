@@ -26,6 +26,11 @@ Difference between disable and unhide：
 `hide` is equals to `uninstall -k` which means uninstall application but keep data
 
 ### Usage：
+If you'd like to use no root version. Please make sure you satisfy the conditions and switch to the `noroot` branch:
+```
+git checkout noroot
+```
+
 The default launch password is `#1234`
 Launch method:
 Open dial pad，input `#1234`，then press call button. This app will be launched

@@ -25,6 +25,11 @@ adb shell pm unhide <packag_name>
 `hide`命令相当于`uninstall -k`卸载应用但是保留数据
 
 ### 用法：
+如果你想使用非root版本，请确保满足条件并切换到`noroot`分支
+```
+git checkout noroot
+```
+
 本软件的默认启动密码是`#1234`
 启动方式：
 打开拨号盘，输入`#1234`，再拨出，就可以启动本应用了，然后在应用列表里选择应用是否隐藏即可

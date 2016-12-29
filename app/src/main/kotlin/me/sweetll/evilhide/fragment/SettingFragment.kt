@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceFragment
+import android.widget.Toast
+import me.sweetll.evilhide.AppApplication
 import me.sweetll.evilhide.MainActivity
 
 import me.sweetll.evilhide.R
@@ -35,9 +37,12 @@ class SettingFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferen
             val p = activity.packageManager
             val componentName = ComponentName(activity, MainActivity::class.java)
             when (selfInvisible) {
-                true -> handler.postDelayed({
-                    p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0)
-                }, 1000)
+                true -> {
+                    Toast.makeText(AppApplication.get(), "程序将在3s后退出，退出后请从拨号盘进入", Toast.LENGTH_LONG).show()
+                    handler.postDelayed({
+                        p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0)
+                    }, 3000)
+                }
                 false -> p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP)
             }
         }

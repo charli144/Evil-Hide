@@ -7,7 +7,7 @@ import android.preference.PreferenceManager
 
 import me.sweetll.evilhide.MainActivity
 import me.sweetll.evilhide.config.Settings
-import me.sweetll.evilhide.SubstituteActivity
+import me.sweetll.evilhide.ProxyActivity
 
 class CallReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -20,7 +20,7 @@ class CallReceiver : BroadcastReceiver() {
 
         if (phoneNumber == launchPassword) {
             val i = Intent()
-            i.setClassName("me.sweetll.evilhide", "me.sweetll.evilhide.SubstituteActivity")
+            i.setClassName("me.sweetll.evilhide", "me.sweetll.evilhide.MainActivity")
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(i)
             resultData = null

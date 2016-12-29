@@ -24,6 +24,21 @@ adb shell pm unhide <packag_name>
 区别：
 `hide`命令相当于`uninstall -k`卸载应用但是保留数据
 
+实际上，`hide`命令最终调用了以下函数（来自`android.content.pm.PackageManager`）. 不幸的是, 它被标识为`@hide`, 所以在Android SDK中，你无法通过正常手段调用它.
+```
+/**
+ * Puts the package in a hidden state, which is almost like an uninstalled state,
+ * making the package unavailable, but it doesn't remove the data or the actual
+ * package file. Application can be unhidden by either resetting the hidden state
+ * or by installing it, such as with {@link #installExistingPackage(String)}
+ * @hide
+ */
+public abstract boolean setApplicationHiddenSettingAsUser(String packageName, boolean hidden,
+        UserHandle userHandle);
+```
+
+
+
 ### 用法：
 如果你想使用非root版本，请确保满足条件并切换到`noroot`分支
 ```

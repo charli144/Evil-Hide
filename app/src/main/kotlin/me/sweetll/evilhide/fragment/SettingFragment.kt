@@ -9,6 +9,7 @@ import android.preference.PreferenceFragment
 import android.widget.Toast
 import me.sweetll.evilhide.AppApplication
 import me.sweetll.evilhide.MainActivity
+import me.sweetll.evilhide.ProxyActivity
 
 import me.sweetll.evilhide.R
 import me.sweetll.evilhide.config.Settings
@@ -35,7 +36,7 @@ class SettingFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferen
         if (key == Settings.KEY_PREF_INVISIBLE) {
             val selfInvisible = sharedPreferences.getBoolean(key, false)
             val p = activity.packageManager
-            val componentName = ComponentName(activity, MainActivity::class.java)
+            val componentName = ComponentName(activity, ProxyActivity::class.java)
             when (selfInvisible) {
                 true -> {
                     Toast.makeText(AppApplication.get(), "程序将在3s后退出，退出后请从拨号盘进入", Toast.LENGTH_LONG).show()

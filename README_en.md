@@ -50,7 +50,7 @@ Launch method:
 Open dial pad，input `#1234`，then press call button. This app will be launched
 After that, you can switch the app's hidden state in the list
 
-###待做列表：
+### Todo list：
 - [x] Android M dynamic permission
 - [x] Support `hide` and `unhide` commands
 - [ ] Use password to launch hidden apps

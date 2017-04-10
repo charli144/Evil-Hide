@@ -15,7 +15,7 @@
 adb shell pm endable <package_name>
 adb shell pm disable <package_name>
 ```
-在Android 5.0及以上使用以下命令显示和隐藏（不需要root）:
+在Android 5.0及以上使用以下命令显示和隐藏（不需要root，但是需要系统权限）:
 ```
 adb shell pm hide <package_name>
 adb shell pm unhide <packag_name>
@@ -38,7 +38,6 @@ public abstract boolean setApplicationHiddenSettingAsUser(String packageName, bo
 ```
 
 
-
 ### 用法：
 如果你想使用非root版本，请确保满足条件并切换到`noroot`分支
 ```
@@ -49,7 +48,7 @@ git checkout noroot
 启动方式：
 打开拨号盘，输入`#1234`，再拨出，就可以启动本应用了，然后在应用列表里选择应用是否隐藏即可
 
-###待做列表：
+### 待做列表：
 - [x] Android 6.0的权限管理
 - [x] 当检测到手机是Android 4.4以上时，使用`pm hide`代替`pm disable`
 - [ ] 使用密码启动被隐藏的应用

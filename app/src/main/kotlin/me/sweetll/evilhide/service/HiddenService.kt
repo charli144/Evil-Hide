@@ -1,9 +1,8 @@
+
 package me.sweetll.evilhide.service
 
 import android.app.IntentService
-import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 
 import eu.chainfire.libsuperuser.Shell

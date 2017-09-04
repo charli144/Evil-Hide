@@ -38,13 +38,13 @@ class AppAdapter(var data: MutableList<AppInfo>) : RecyclerView.Adapter<AppAdapt
             binding.starBtn.setOnFavoriteChangeListener{
                 button, favorite ->
                 if (button.isPressed) {
-                    binding.viewModel.onFavoriteChange(favorite)
+                    binding.viewModel?.onFavoriteChange(favorite)
                 }
             }
             binding.switchBtn.setOnCheckedChangeListener {
                 button, check ->
                 if (button.isPressed) {
-                    binding.viewModel.onCheckChange(check)
+                    binding.viewModel?.onCheckChange(check)
                 }
             }
             binding.switchBtn.isChecked = appInfo.hidden

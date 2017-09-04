@@ -6,6 +6,9 @@ Note: After hide, the hidden app cannot be launched from anywhere before it is u
 
 ![1](./demo.gif)
 
+### Notice:
+Only tested on Nexus 4 and Nexus 5X. I also find that this app may not work on some ROM, such as MIUI for these ROM will kill apps that not show in the recent tasks, which cause the broadcastreceiver not work.
+
 ### Feature：
 - You can choose to hide the icon of this app. Then you can launch it by inputting password in the dial pad.
 - No root needed!（Only for rom build from `AOSP` and android version is bigger than 5.0. For example Nexus series, including Nexus 4, Nexus 5, Nexus 5x, Nexus 6p and etc）
